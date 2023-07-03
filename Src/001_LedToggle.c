@@ -19,8 +19,12 @@ int main(void)
 	GPIOLed.GPIO_PinConfig.GPIO_PinNumber=GPIO_PIN_NO_12;
 	GPIOLed.GPIO_PinConfig.GPIO_PinMode=GPIO_MODE_OUTPUT;
 	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed=GPIO_SPEED_FAST;
-	GPIOLed.GPIO_PinConfig.GPIO_PinOPType=GPIO_OP_TYPE_PP;
-	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl=GPIO_NO_PUPD;
+
+	//GPIOLed.GPIO_PinConfig.GPIO_PinOPType=GPIO_OP_TYPE_PP; 	//pull-up-pull-down -> led lights up
+	GPIOLed.GPIO_PinConfig.GPIO_PinOPType=GPIO_OP_TYPE_OD;		//open drain and no-pullup-pulldown led off
+
+	//GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl=GPIO_NO_PUPD;
+	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl=GPIO_PIN_PU;		//pull-up -> led lights up but very little
 
 	GPIO_PeriClockControl(GPIOD, ENABLE);
 	GPIO_Init(&GPIOLed);
