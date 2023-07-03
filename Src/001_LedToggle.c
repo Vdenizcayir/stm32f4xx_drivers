@@ -35,5 +35,6 @@ int main(void)
 		GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_12);
 		delay();
 	}
+
 	return 0;
 }
