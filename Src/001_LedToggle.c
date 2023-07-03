@@ -26,6 +26,9 @@ int main(void)
 	//GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl=GPIO_NO_PUPD;
 	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl=GPIO_PIN_PU;		//pull-up -> led lights up but very little
 
+
+
+
 	GPIO_PeriClockControl(GPIOD, ENABLE);
 	GPIO_Init(&GPIOLed);
 
