@@ -52,21 +52,21 @@ typedef struct
 
 
 
-/* @GPIO_PIN_MODES
- * GPIO pin possible modes                      //***********GPIO registerları için kullanılabilecek makrolar. bitleri değiştirmek için.
- */
+// @GPIO_PIN_MODES
+// GPIO pin possible modes                      //***********GPIO registerları için kullanılabilecek makrolar. bitleri değiştirmek için.
+//
 #define GPIO_MODE_INPUT			0
 #define GPIO_MODE_OUTPUT		1
 #define GPIO_MODE_ALTFN			2
 #define GPIO_MODE_ANALOG		3
-#define GPIO_MODE_IT_FT			4
-#define GPIO_MODE_IT_RT			5
+#define GPIO_MODE_IT_FT			4		//falling edge detection
+#define GPIO_MODE_IT_RT			5		//rising edge detection
 #define GPIO_MODE_IT_RFT		6
 
 /*
  * GPIO pin possible output types
  */
-#define GPIO_OP_TYPE_PP			0
+#define GPIO_OP_TYPE_PP			0  //Pushpull
 #define GPIO_OP_TYPE_OD			1
 
 /*@GPIO_PIN_SPEED

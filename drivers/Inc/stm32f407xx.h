@@ -3,6 +3,25 @@
 
 #define __vo volatile
 
+
+
+/*Processor Specific Details*/
+/*ARM Cortex Mx Processor NVIC ISERx register Addresses*/
+
+#define NVIC_ISER0				((__vo uint32_t*)0xE000E100)
+#define NVIC_ISER1				((__vo uint32_t*)0xE000E104)
+#define NVIC_ISER2				((__vo uint32_t*)0xE000E108)
+#define NVIC_ISER3				((__vo uint32_t*)0xE000E10C)
+
+/*ARM Cortex Mx Processor NVIC ICERx register Addresses*/
+#define NVIC_ICER0				((__vo uint32_t*)0XE000E180)
+#define NVIC_ICER1				((__vo uint32_t*)0XE000E184)
+#define NVIC_ICER2				((__vo uint32_t*)0XE000E188)
+#define NVIC_ICER3				((__vo uint32_t*)0XE000E180C)
+
+
+
+
 #define FLASH_BASEADDR			0x08000000U
 #define SRAM1_BASEADDR			0x20000000U //SRAM1 112KB. 1KB=1024BYTE 112*1024=114688 HEX KARŞILIĞI=1C000
 #define SRAM2_BASEADDR			0x2001C000U
@@ -88,6 +107,9 @@ typedef struct
 #define GPIOI					((GPIO_RegDef_t*)GPIOI_BASEADDR)
 
 #define RCC						((RCC_RegDef_t*)RCC_BASEADDR)
+#define EXTI					((EXTI_RegDef_t*)EXTI_BASEADDR)
+#define SYSCFG					((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
+
 typedef struct
 {
 	__vo uint32_t RCC_CR;
@@ -123,6 +145,32 @@ typedef struct
 }RCC_RegDef_t;
 
 
+
+typedef struct
+{
+	__vo uint32_t IMR;
+	__vo uint32_t EMR;
+	__vo uint32_t RTSR;
+	__vo uint32_t FTSR;
+	__vo uint32_t SWIER;
+	__vo uint32_t PR;
+}EXTI_RegDef_t;
+
+
+typedef struct
+{
+	__vo uint32_t MEMRMP;
+	__vo uint32_t PMC;
+	__vo uint32_t EXTICR[4];
+	__vo uint32_t RESERVED1[2];
+	__vo uint32_t CMPCR;
+	__vo uint32_t RESERVED[2];
+	__vo uint32_t CFGR;
+}SYSCFG_RegDef_t;
+
+
+
+
 /******************** Clock Enable Macros for GPIOx Peripherals ********************/
 
 #define GPIOA_PCLK_EN()			(RCC->RCC_AHB1ENR |= (1<<0))
@@ -140,22 +188,22 @@ typedef struct
 
 /******************** Clock Enable Macros for I2Cx Peripherals ********************/
 
-#define I2C_PCLK_EN()			(RCC->APB1PERIPH_BASE |= (1<<21))
+#define I2C_PCLK_EN()			(RCC->RCC_APB1ENR |= (1<<21))
 
 
 /******************** Clock Enable Macros for SPIx Peripherals ********************/
 
-#define SPI1_PCLK_EN()			(RCC->APB2PERIPH_BASE |= (1<<12))
+#define SPI1_PCLK_EN()			(RCC->RCC_APB2ENR |= (1<<12))
 
 
 /******************** Clock Enable Macros for USARTx Peripherals ********************/
 
-#define USART1_PCLK_EN()		(RCC->APB2PERIPH_BASE |= (1<<4))
+#define USART1_PCLK_EN()		(RCC->RCC_APB2ENR |= (1<<4))
 
 
 /******************** Clock Enable Macros for SYSCFG Peripherals ********************/
 
-#define SYSCFG_PCLK_EN()		(RCC->APB2PERIPH_BASE |= (1<<14))
+#define SYSCFG_PCLK_EN()		(RCC->RCC_APB2ENR |= (1<<14))
 
 
 /*Disable Clock*/
@@ -206,6 +254,16 @@ typedef struct
 #define GPIOH_REG_RESET() 				do{ (RCC->RCC_AHB1RSTR |= (1<<7)); (RCC->RCC_AHB1RSTR &= ~(1<<7));}while(0)
 #define GPIOI_REG_RESET() 				do{ (RCC->RCC_AHB1RSTR |= (1<<8)); (RCC->RCC_AHB1RSTR &= ~(1<<8));}while(0)
 
+
+
+#define GPIO_BASEADDR_TO_CODE(x)	((x==GPIOA)?0:\
+									(x==GPIOB)?1:\
+									(x==GPIOC)?2:\
+									(x==GPIOD)?3:\
+									(x==GPIOE)?4:\
+									(x==GPIOF)?5:\
+									(x==GPIOG)?6:\
+									(x==GPIOH)?7:0)
 
 
 //Some Generic Macros
