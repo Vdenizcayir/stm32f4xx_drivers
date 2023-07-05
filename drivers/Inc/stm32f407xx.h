@@ -110,6 +110,10 @@ typedef struct
 #define EXTI					((EXTI_RegDef_t*)EXTI_BASEADDR)
 #define SYSCFG					((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
+#define SPI1					((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2					((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3					((SPI_RegDef_t*)SPI3_BASEADDR)
+
 typedef struct
 {
 	__vo uint32_t RCC_CR;
@@ -168,6 +172,19 @@ typedef struct
 	__vo uint32_t CFGR;
 }SYSCFG_RegDef_t;
 
+typedef struct
+{
+	__vo uint32_t CR1;
+	__vo uint32_t CR2;
+	__vo uint32_t SR;
+	__vo uint32_t DR;
+	__vo uint32_t CRCPR;
+	__vo uint32_t RXCRCR;
+	__vo uint32_t TXCRCR;
+	__vo uint32_t I2SCFGR;
+	__vo uint32_t I2SPR;
+}SPI_RegDef_t;
+
 
 
 
@@ -194,6 +211,9 @@ typedef struct
 /******************** Clock Enable Macros for SPIx Peripherals ********************/
 
 #define SPI1_PCLK_EN()			(RCC->RCC_APB2ENR |= (1<<12))
+#define SPI2_PCLK_EN()			(RCC->RCC_APB1ENR |= (1<<14))
+#define SPI3_PCLK_EN()			(RCC->RCC_APB1ENR |= (1<<15))
+#define SPI4_PCLK_EN()			(RCC->RCC_APB2ENR |= (1<<13))
 
 
 /******************** Clock Enable Macros for USARTx Peripherals ********************/
@@ -265,6 +285,18 @@ typedef struct
 									(x==GPIOG)?6:\
 									(x==GPIOH)?7:0)
 
+
+
+/*
+ * IEQ Numbers of STM32F407x MCU
+ */
+#define IRQ_NO_EXTI0		6
+#define IRQ_NO_EXTI1		7
+#define IRQ_NO_EXTI2		8
+#define IRQ_NO_EXTI3		9
+#define IRQ_NO_EXTI4		10
+#define IRQ_NO_EXTI9_5		23
+#define IRQ_NO_EXTI15_10	40
 
 //Some Generic Macros
 
